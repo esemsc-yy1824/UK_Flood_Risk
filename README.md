@@ -1,7 +1,11 @@
 # UK Flood Risk Prediction Tool 🌊
-🧙‍♀️Yiyu Yang  [[LinkedIn](https://www.linkedin.com/in/yiyu-yang/)] [Email: yangalita73@gmail.com]
+🧙‍♀️Yiyu Yang  [[LinkedIn](https://www.linkedin.com/in/yiyu-yang/)] ✉️[Email: yangalita73@gmail.com]  
 
+Webpage interaction:
 ![FloodRisk](./img/FloodRisk.gif)
+
+The interactive maps of predicted risk data, rainfall data and water level data:
+<img src="./img/FloodRiskPrediction.png" width="100%"/><img src="./img/Rainfall_waterlevel_typical.png" width="50%"/><img src="./img/Rainfall_waterlevel_wet.png" width="50%"/>
 
 ## Synopsis
 Given the global and UK distribution of human habitation, flooding is one of the most common and impactful natural distasters which can occur. [Analysis of satellite data](https://doi.org/10.1038/s41586-021-03695-w) coupled with [predictions on future changes](https://www.ipcc.ch/report/ar5/syr/) to the climate suggest this is an issue which will only get more frequent and severe.

@@ -39,10 +39,27 @@ def get_house_head(postcode):
     headcount = int(matching_data["headcount"].iloc[0])
     return households, headcount
 
-
 def normalise_rainfall(df):
     """
-    Normalize rainfall values to meters/mAOD/mASD if unit is mm.
+    Normalize rainfall values to millimeters (mm) if the unit is not already in mm.
+
+    If the `unitName` is not "mm", the corresponding `value` is multiplied by 1000 
+    to convert it to millimeters, and the `unitName` is updated to "mm".
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        DataFrame containing rainfall data with columns `unitName` and `value`.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Updated DataFrame with normalized rainfall values in millimeters.
+
+    Examples
+    --------
+    >>> df = pd.DataFrame({'unitName': ['m', 'mm'], 'value': [0.5, 10]})
+    >>> normalise_rainfall(df)
     """
     df.loc[df["unitName"] != "mm", "value"] *= 1000
     df.loc[df["unitName"] != "mm", "unitName"] = "mm"
@@ -51,7 +68,26 @@ def normalise_rainfall(df):
 
 def Rainfall_merged_data(station_name):
     """ 
-    Merge the station data with the rainfall data in typical day and wet day based on the station name.
+    Merge station data with typical and wet day rainfall data for the given station.
+
+    This function reads the station, typical day, and wet day rainfall data, filters 
+    for the specified station, normalizes the rainfall values, and merges the data 
+    into a single DataFrame.
+
+    Parameters
+    ----------
+    station_name : str
+        The name of the station to retrieve and merge data for.
+
+    Returns
+    -------
+    pandas.DataFrame
+        A DataFrame containing the merged station and rainfall data, with columns for
+        typical and wet day rainfall values.
+
+    Notes
+    -----
+    - The rainfall values are normalized to millimeters if they are not already.
     """
     # read the station data
     current_path = os.path.dirname(__file__)

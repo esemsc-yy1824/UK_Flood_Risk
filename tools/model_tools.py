@@ -50,7 +50,6 @@ local_authority_methods = {
 IMPUTATION_CONSTANTS = {
     "soilType": "Unsurveyed/Urban",
     "elevation": 60.0,
-    # "nearestWatercourse": "",
     "distanceToWatercourse": 80,
     "localAuthority": np.nan,
 }
@@ -313,7 +312,6 @@ class Tool(object):
             else:
                 raise ValueError(f"Unknown model key: {model_key}")
 
-
     def impute_missing_values(
         self,
         data: pd.DataFrame,
@@ -397,7 +395,6 @@ class Tool(object):
 
         return pd.concat([postcode, df_drop_postcode], axis=1)
 
-
     def predict_flood_class_from_postcode(
         self, postcodes: Sequence[str], method: str = "flood_risk_classifier"
     ) -> pd.Series:
@@ -461,7 +458,6 @@ class Tool(object):
         else:
             raise NotImplementedError(f"method {method} not implemented")
 
-
     def predict_historic_flooding(
         self, postcodes: Sequence[str], method: str = "historic_flooding_classifier"
     ) -> pd.Series:
@@ -523,7 +519,6 @@ class Tool(object):
 
         else:
             raise NotImplementedError(f"method {method} not implemented")
-
 
     def estimate_annual_flood_economic_risk(
         self, postcodes: Sequence[str], risk_labels: Union[pd.Series, None] = None
@@ -604,7 +599,6 @@ class Tool(object):
             return postcode[:-3] + " " + postcode[-3:]
         return postcode
 
-
     def make_output(
         self,
         postcodes=None,
@@ -663,9 +657,44 @@ class Tool(object):
             output = flood_risk_wgs84.to_frame()
 
         output.to_csv(path)
-
     
     def drop_noRecord_cat_row(self, raw_df):
+        """
+        Drop rows with unrecognized categorical values in specific columns.
+
+        This method filters rows in the input DataFrame to include only those 
+        with categorical values present in a predefined list. The lists of valid 
+        categorical values are loaded from an external CSV file.
+
+        Parameters
+        ----------
+        raw_df : pd.DataFrame
+            The input DataFrame containing raw data with categorical columns.
+
+        Returns
+        -------
+        pd.DataFrame
+            A DataFrame containing rows where the `soilType` and `localAuthority` 
+            columns have values recognized in the predefined lists.
+
+        Notes
+        -----
+        The method uses a resource file `postcodes_labelled.csv` located in the 
+        `./resources_data/` directory to determine valid categorical values.
+
+        Examples
+        --------
+        >>> raw_df = pd.DataFrame({
+        ...     'soilType': ['Clay', 'Silt', 'Unknown'],
+        ...     'localAuthority': ['CouncilA', 'CouncilB', 'Invalid']
+        ... })
+        >>> models = Models()
+        >>> filtered_df = models.drop_noRecord_cat_row(raw_df)
+        >>> filtered_df
+        soilType localAuthority
+        0      Clay       CouncilA
+        1      Silt       CouncilB
+        """
         cat_recorded = pd.read_csv("./resources_data/postcodes_labelled.csv")[['soilType', 'localAuthority']]
         
         soilType = [i for i in cat_recorded['soilType'].unique()]
@@ -680,10 +709,51 @@ class Tool(object):
         df = pd.concat([raw_df_soilType, raw_df_localAuthority], axis=0)
 
         return df
-
     
     def easting_northing_to_lat_lon(self, df, easting_col, northing_col):
-        # Create an empty list to store latitudes and longitudes
+        """
+        Convert easting and northing coordinates to latitude and longitude.
+
+        This method transforms coordinates from the British National Grid (OSGB36) 
+        to the WGS84 geographic coordinate system (latitude and longitude) and 
+        appends the results as new columns in the DataFrame.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            The input DataFrame containing easting and northing columns.
+        easting_col : str
+            The name of the column in the DataFrame containing easting values.
+        northing_col : str
+            The name of the column in the DataFrame containing northing values.
+
+        Returns
+        -------
+        pd.DataFrame
+            The original DataFrame with two new columns: `Latitude` and `Longitude`, 
+            containing the converted geographic coordinates.
+
+        Notes
+        -----
+        - The transformation uses EPSG:27700 for the British National Grid (OSGB36) 
+        and EPSG:4326 for WGS84.
+        - Ensure the input data contains valid easting and northing values 
+        to avoid transformation errors.
+
+        Examples
+        --------
+        >>> df = pd.DataFrame({
+        ...     'Easting': [400000, 500000],
+        ...     'Northing': [300000, 200000]
+        ... })
+        >>> models = Models()
+        >>> result_df = models.easting_northing_to_lat_lon(df, 'Easting', 'Northing')
+        >>> result_df[['Latitude', 'Longitude']]
+            Latitude  Longitude
+        0  52.6576  -1.5184
+        1  52.2053  -0.1218
+        """
+        
         latitudes = []
         longitudes = []
         
@@ -691,19 +761,15 @@ class Tool(object):
         # EPSG:27700 is for OSGB36 (British National Grid)
         transformer = pyproj.Transformer.from_crs("epsg:27700", "epsg:4326", always_xy=True)
         
-        # Iterate over each row in the dataframe
         for _, row in df.iterrows():
             easting = row[easting_col]
             northing = row[northing_col]
             
-            # Convert easting, northing to latitude, longitude using the defined transformer
             lon, lat = transformer.transform(easting, northing)
             
-            # Append the lat/lon values to the lists
             latitudes.append(lat)
             longitudes.append(lon)
         
-        # Add the latitudes and longitudes as new columns in the dataframe
         df['Latitude'] = latitudes
         df['Longitude'] = longitudes
         

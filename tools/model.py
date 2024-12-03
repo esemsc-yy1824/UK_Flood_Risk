@@ -38,7 +38,6 @@ class Models:
         """
         pass
 
-
     def flood_risk_model(self) -> str:
         """
         Create a pipeline to predict flood risk using a random forest classifier.
@@ -128,7 +127,6 @@ class Models:
         """
         return data.drop(columns=cols_to_drop)
     
-
     def _scale_numerical(
         self, data: pd.DataFrame, scaling_type: str = "standard", excluded_cols: list = None
     ) -> pd.DataFrame:
@@ -190,7 +188,6 @@ class Models:
             return pd.concat([data, excluded_data], axis=1)
         return data
 
-
     def _encode_categoricals(self, data):
         """
         Encode categorical columns in the given DataFrame using one-hot encoding.
@@ -234,9 +231,56 @@ class Models:
         return data
 
     def _get_numerical_columns(self, data):
+        """
+        Identify numerical columns in the input DataFrame.
+
+        This method selects columns with numerical data types from the provided DataFrame.
+
+        Parameters
+        ----------
+        data : pd.DataFrame
+            The input DataFrame from which numerical columns are to be extracted.
+
+        Returns
+        -------
+        pandas.Index
+            An index object containing the names of numerical columns in the DataFrame.
+
+        Examples
+        --------
+        >>> data = pd.DataFrame({'feature1': [1, 2, 3], 'feature2': ['A', 'B', 'C']})
+        >>> models = Models()
+        >>> numeric_columns = models._get_numerical_columns(data)
+        >>> numeric_columns
+        Index(['feature1'], dtype='object')
+        """
         numeric_col = data.select_dtypes(include=[np.number]).columns
         return numeric_col
     
     def _get_categorical_columns(self, data):
+        """
+        Identify categorical columns in the input DataFrame.
+
+        This method selects columns with categorical data types (object or category) 
+        from the provided DataFrame.
+
+        Parameters
+        ----------
+        data : pd.DataFrame
+            The input DataFrame from which categorical columns are to be extracted.
+
+        Returns
+        -------
+        pandas.Index
+            An index object containing the names of categorical columns in the DataFrame.
+
+        Examples
+        --------
+        >>> data = pd.DataFrame({'feature1': [1, 2, 3], 'feature2': ['A', 'B', 'C']})
+        >>> models = Models()
+        >>> cat_columns = models._get_categorical_columns(data)
+        >>> cat_columns
+        Index(['feature2'], dtype='object')
+        """
         cat_columns = data.select_dtypes(include=["object", "category"]).columns
         return cat_columns
