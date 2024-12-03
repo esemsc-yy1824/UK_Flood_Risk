@@ -1,0 +1,11 @@
+The postcode and household information is from data provided by the UK Office Of National Statistics under the Open Government Licence.
+
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+
+Flood risk data is derived from the [Environment Agency](https://environment.data.gov.uk/dataset/8d57464f-d465-11e4-8790-f0def148f590), adapted under the Open Government Licence.
+
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+
+Soil type data is derived from the National Soil Resources Institute maps of the [soilscapes for England and Wales](http://www.ukso.org/static-maps/soils-of-england-and-wales.html).
+
+Watercourse data is take from the Ordnance Survey's [Open Rivers](https://www.ordnancesurvey.co.uk/business-and-government/products/os-open-rivers.html) dataset, adapted under the [OS Open Data Licence](www.os.uk/opendata/licence)
