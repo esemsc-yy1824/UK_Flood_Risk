@@ -1,11 +1,13 @@
 # UK Flood Risk Prediction Tool 🌊
 🧙‍♀️Yiyu Yang  [[LinkedIn](https://www.linkedin.com/in/yiyu-yang/)] ✉️[Email: yangalita73@gmail.com]  
-
-Webpage interaction:
+<br>
+<br>
+This is an interactive map webpage built using *Streamlit*. It allows users to intuitively predict and explore real-time flood risk levels in the southern regions of the UK. Additionally, users can input and search for the name of a monitoring station in the UK to view the corresponding *rainfall* and *water level* information for its location.
 ![FloodRisk](./img/FloodRisk.gif)
 
-The interactive maps of predicted risk data, rainfall data and water level data:
-<img src="./img/FloodRiskPrediction.png" width="100%"/><img src="./img/Rainfall_waterlevel_wet.png" width="50%"/><img src="./img/Rainfall_waterlevel_typical.png" width="50%"/>
+Detailed visualizations, explanations, and textual analyses can be found in the **Data Visualization.ipynb** report. Below is a quick display of the images included in the report:
+<img src="./img/FloodRiskPrediction.png" width="100%"/>
+<img src="./img/Rainfall_waterlevel_wet.png" width="50%"/><img src="./img/Rainfall_waterlevel_typical.png" width="50%"/>
 
 ## Synopsis
 Given the global and UK distribution of human habitation, flooding is one of the most common and impactful natural distasters which can occur. [Analysis of satellite data](https://doi.org/10.1038/s41586-021-03695-w) coupled with [predictions on future changes](https://www.ipcc.ch/report/ar5/syr/) to the climate suggest this is an issue which will only get more frequent and severe.
@@ -29,23 +31,38 @@ The purpose of this programme is to:
   **(b) Use this tool, along with rainfall and river level data, to provide a holistic visual tool for assessing and analyzing flood risk.**
 
 ## Quick Start ✨
-**Run these commands in the terminal to create a new Conda environment and install all the necessary dependencies:**
+1. **Clone the repository:**
 
-```
-cd UK_Flood_Risk
-conda create -n flood python=3.9
-conda activate flood
-conda env update -f environment.yml
-```
-### Run the prediction model:
-`python run_model.py`
+   ```bash
+   git clone https://github.com/ese-ada-lovelace-2024/ads-deluge-jubilee.git
+   cd ads-deluge-jubilee
+   ```
+2. **Create a new Conda environment and install the dependencies:**
+    ```bash
+    cd UK_Flood_Risk
+    conda create -n flood python=3.9
+    conda activate flood
+    conda env update -f environment.yml
+    ```
 
-### Result Visualization:
+3. **Run the prediction model:**
+    ```bash
+    python run_model.py
+    ```
+
+4. **Result Visualization:**
 - You can view the visualizations through the project's Jupyter Notebook:  
-__./Data Visualization.ipynb__  
+_./Data Visualization.ipynb_  
 - or interact directly by running our webpage:  
- `streamlit run WebPage.py`
+  ```bash
+  streamlit run WebPage.py
+  ```
+## License
 
+This project is licensed under the MIT License. See *LICENSE* for details.  
+
+
+<br></br>
 ---
 The topic of this programe was proposed by [James Percival](https://www.imperial.ac.uk/people/j.percival),
 [Parastoo Salah](https://www.imperial.ac.uk/people/p.salah)
