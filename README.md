@@ -1,10 +1,11 @@
 # UK Flood Risk Prediction Tool 🌊
 🧙‍♀️Yiyu Yang  [[LinkedIn](https://www.linkedin.com/in/yiyu-yang/)] ✉️[Email: yangalita73@gmail.com]  
-<br>
-<br>
-This is an interactive map webpage built using *Streamlit*. It allows users to intuitively predict and explore real-time flood risk levels in the southern regions of the UK. Additionally, users can input and search for the name of a monitoring station in the UK to view the corresponding *rainfall* and *water level* information for its location.
-![FloodRisk](./img/FloodRisk.gif)
 
+The interactive map webpage was built using *Streamlit*. It allows users to intuitively predict and explore real-time flood risk levels in the southern regions of the UK. Additionally, users can input and search for the name of a monitoring station in the UK to view the corresponding *rainfall* and *water level* information for its location.  
+[The GIF file below might need a few seconds to load...]
+![FloodRisk](./img/FloodRisk.gif)
+<br>
+<br>
 Detailed visualizations, explanations, and textual analyses can be found in the **Data Visualization.ipynb** report. Below is a quick display of the images included in the report:
 <img src="./img/FloodRiskPrediction.png" width="100%"/>
 <img src="./img/Rainfall_waterlevel_wet.png" width="50%"/><img src="./img/Rainfall_waterlevel_typical.png" width="50%"/>
