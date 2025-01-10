@@ -32,32 +32,34 @@ The purpose of this programme is to:
   **(b) Use this tool, along with rainfall and river level data, to provide a holistic visual tool for assessing and analyzing flood risk.**
 
 ## Quick Start ✨
-1. **Clone the repository:**
+Follow the steps below to set up and run the project:
 
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/ese-ada-lovelace-2024/ads-deluge-jubilee.git
    cd ads-deluge-jubilee
    ```
-2. **Create a new Conda environment and install the dependencies:**
-    ```bash
-    cd UK_Flood_Risk
-    conda create -n flood python=3.9
-    conda activate flood
-    conda env update -f environment.yml
-    ```
+
+2. **Set up the environment:**
+   ```bash
+   cd UK_Flood_Risk
+   conda create -n flood python=3.9
+   conda activate flood
+   conda env update -f environment.yml
+   ```
 
 3. **Run the prediction model:**
-    ```bash
-    python run_model.py
-    ```
+   ```bash
+   python run_model.py
+   ```
 
-4. **Result Visualization:**
-- You can view the visualizations through the project's Jupyter Notebook:  
-_./Data Visualization.ipynb_  
-- or interact directly by running our webpage:  
-  ```bash
-  streamlit run WebPage.py
-  ```
+4. **Explore the results:**
+   - **Notebook Visualizations:** Open _./Data Visualization.ipynb_ in Jupyter Notebook.
+   - **Interactive Webpage:** Launch the Streamlit app:
+     ```bash
+     streamlit run WebPage.py
+     ```
+
 ## License
 
 This project is licensed under the MIT License. See *LICENSE* for details.  
